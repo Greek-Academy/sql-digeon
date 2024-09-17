@@ -17,3 +17,9 @@ make destroy
 ```sh
 docker exec -it api-mysql-1 mysql -udocker -ppassword
 ```
+
+## migrateする
+
+```sh
+make migrate-up
+```
