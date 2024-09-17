@@ -1,0 +1,9 @@
+FROM mysql:8.0.28
+
+# Migrateのバイナリをダウンロードしてインストール
+RUN rm /etc/apt/sources.list.d/mysql.list && \
+    apt-get update && apt-get install -y curl && \
+    curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz && \
+    mkdir -p /usr/local/bin && \
+    mv migrate /usr/local/bin/migrate && \
+    chmod +x /usr/local/bin/migrate

@@ -11,3 +11,11 @@ run-dev:
 destroy:
 	$(DOCKER_COMPOSE_DEV) down --volumes --remove-orphans
 	rm -rf mysql/mysql-data || rd /s /q mysql\mysql-data
+
+.PHONY: migrate-up
+migrate-up:
+	$(DOCKER_COMPOSE_DEV) run --rm mysql sh -c 'migrate -path migrations -database "mysql://$$MYSQL_USER:$$MYSQL_PASSWORD@tcp(mysql:$$MYSQL_TCP_PORT)/$$MYSQL_DATABASE?multiStatements=true" up'
+
+.PHONY: migrate-down
+migrate-down:
+	$(DOCKER_COMPOSE_DEV) run --rm mysql sh -c 'migrate -path migrations -database "mysql://$$MYSQL_USER:$$MYSQL_PASSWORD@tcp(mysql:$$MYSQL_TCP_PORT)/$$MYSQL_DATABASE?multiStatements=true" down'
