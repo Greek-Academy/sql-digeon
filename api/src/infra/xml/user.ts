@@ -1,5 +1,5 @@
 import { XmlCore } from "@/infra/xml/core";
-import { UsersXml, convertUsersFromXml } from "@/xml/user";
+import { type UsersXml, convertUsersFromXml } from "@/xml/user";
 
 export const usersXml = async () => {
   try {

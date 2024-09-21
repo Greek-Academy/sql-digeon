@@ -1,0 +1,47 @@
+name: App
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - "app/**"
+      - ".github/workflows/app.yml"
+
+defaults:
+  run:
+    working-directory: app
+
+jobs:
+  check-vulnerabilities:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check TypeScript vulnerabilities
+        run: npm audit --audit-level high
+
+  lint-and-format:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+      - name: Lint and Format
+        run: |
+          npm run check

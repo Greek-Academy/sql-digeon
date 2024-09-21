@@ -10,19 +10,17 @@ const NewMySQL = (async () => {
   return connection;
 })();
 
-export class MySQLSingleton {
-  private static instance: mysql.Connection;
-
-  static async getInstance(): Promise<mysql.Connection> {
+export const MySQLSingleton = {
+  instance: null as mysql.Connection | null,
+  async getInstance(): Promise<mysql.Connection> {
     if (!this.instance) {
       this.instance = await NewMySQL;
     }
     return this.instance;
-  }
-
-  static async end(): Promise<void> {
+  },
+  async end(): Promise<void> {
     if (this.instance) {
       await this.instance.end();
     }
-  }
-}
+  },
+};
