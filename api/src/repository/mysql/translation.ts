@@ -1,5 +1,5 @@
-import mysql from "mysql2/promise";
-import { Translation } from "@/repository/interface/translation";
+import type { Translation } from "@/repository/interface/translation";
+import type mysql from "mysql2/promise";
 
 export class TranslationMySQL implements Translation {
   constructor(private connection: mysql.Connection) {}

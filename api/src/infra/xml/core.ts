@@ -1,5 +1,5 @@
+import fs from "node:fs";
 import { usersXml } from "@/infra/xml/user";
-import fs from "fs";
 import xml2js from "xml2js";
 
 export class XmlCore<T> {

@@ -1,6 +1,6 @@
-import mysql from "mysql2/promise";
-import { User } from "@/entity/user";
-import { UserRepository } from "@/repository/interface/user";
+import type { User } from "@/entity/user";
+import type { UserRepository } from "@/repository/interface/user";
+import type mysql from "mysql2/promise";
 
 export class UserRepositoryMySQL implements UserRepository {
   constructor(private connection: mysql.Connection) {}

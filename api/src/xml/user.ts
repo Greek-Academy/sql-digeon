@@ -1,4 +1,4 @@
-import { User } from "@/entity/user";
+import type { User } from "@/entity/user";
 
 export type UserXml = {
   $: {
@@ -29,17 +29,17 @@ export type UsersXml = {
  */
 export const convertUsersFromXml = (usersXml: UserXml[]): User[] => {
   return usersXml.map((user) => ({
-    id: parseInt(user.$.Id) || null,
-    reputation: parseInt(user.$.Reputation) || null,
+    id: Number.parseInt(user.$.Id) || null,
+    reputation: Number.parseInt(user.$.Reputation) || null,
     creationDate: new Date(user.$.CreationDate),
     displayName: user.$.DisplayName,
     lastAccessDate: new Date(user.$.LastAccessDate),
     websiteUrl: user.$.WebsiteUrl,
     location: user.$.Location,
     aboutMe: user.$.AboutMe,
-    views: parseInt(user.$.Views) || null,
-    upVotes: parseInt(user.$.UpVotes) || null,
-    downVotes: parseInt(user.$.DownVotes) || null,
-    accountId: parseInt(user.$.AccountId) || null,
+    views: Number.parseInt(user.$.Views) || null,
+    upVotes: Number.parseInt(user.$.UpVotes) || null,
+    downVotes: Number.parseInt(user.$.DownVotes) || null,
+    accountId: Number.parseInt(user.$.AccountId) || null,
   }));
 };

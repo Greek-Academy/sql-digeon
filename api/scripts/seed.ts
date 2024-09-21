@@ -1,8 +1,7 @@
-import "dotenv/config";
-import { MySQLSingleton } from "@/repository/mysql/core";
-import { UserRepositoryMySQL } from "@/repository/mysql/user";
-import { TranslationMySQL } from "@/repository/mysql/translation";
 import { Xml } from "@/infra/xml/core";
+import { MySQLSingleton } from "@/repository/mysql/core";
+import { TranslationMySQL } from "@/repository/mysql/translation";
+import { UserRepositoryMySQL } from "@/repository/mysql/user";
 
 (async () => {
   try {
