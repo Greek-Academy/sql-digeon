@@ -14,10 +14,11 @@ services:
       - MYSQL_PASSWORD=password
       - TZ=Asia/Tokyo
       - MYSQL_TCP_PORT=3306
+    env_file:
+      - .env
     volumes:
       - ./mysql/mysql-data:/var/lib/mysql
       - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./mysql/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
       - ./mysql/migrations:/migrations
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
