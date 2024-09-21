@@ -1,5 +1,11 @@
 # api
 
+## 環境変数の設定
+
+```sh
+cp .env.example .env
+```
+
 ## 環境を立ち上げる
 
 ```sh
@@ -22,4 +28,12 @@ docker exec -it api-mysql-1 mysql -udocker -ppassword
 
 ```sh
 make migrate-up
+```
+
+## seedの投入
+
+環境変数 `XML_PATH` にxmlファイルを置いた状態で下記のコマンドを実行する
+
+```sh
+npm run seed
 ```

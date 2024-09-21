@@ -7,7 +7,7 @@ CREATE TABLE `users` (
   `last_access_date` timestamp,
   `website_url` varchar(255),
   `location` varchar(255),
-  `about_me` varchar(255),
+  `about_me` text,
   `views` integer,
   `up_votes` integer,
   `down_votes` integer,
