@@ -1,4 +1,4 @@
-name: App
+name: API
 
 on:
   push:
@@ -9,12 +9,12 @@ on:
     branches:
       - develop
     paths:
-      - "app/**"
-      - ".github/workflows/app.yml"
+      - "api/**"
+      - ".github/workflows/api.yml"
 
 defaults:
   run:
-    working-directory: app
+    working-directory: api
 
 jobs:
   check-vulnerabilities:
