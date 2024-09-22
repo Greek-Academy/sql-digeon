@@ -1,3 +1,4 @@
+import { getConfig } from "@/config";
 import type { Comment } from "@/entity/comment";
 import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
@@ -43,7 +44,7 @@ export const convertCommentsFromXml = (
  */
 export const commentsXml = async () => {
   try {
-    const xmlPath = process.env.XML_PATH || "tmp";
+    const xmlPath = getConfig("xmlPath");
     const xml = await new XmlCore<CommentsXml>().read(
       `${xmlPath}/Comments.xml`,
     );

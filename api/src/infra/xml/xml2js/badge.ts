@@ -1,3 +1,4 @@
+import { getConfig } from "@/config";
 import type { Badge } from "@/entity/badge";
 import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
@@ -39,7 +40,7 @@ export const convertBadgesFromXml = (badgesXml: BadgeXml[]): Badge[] => {
  */
 export const badgesXml = async () => {
   try {
-    const xmlPath = process.env.XML_PATH || "tmp";
+    const xmlPath = getConfig("xmlPath");
     const xml = await new XmlCore<BadgesXml>().read(`${xmlPath}/Badges.xml`);
     return xml.entity((xml) => convertBadgesFromXml(xml.badges.row));
   } catch (error) {

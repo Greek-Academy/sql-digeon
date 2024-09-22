@@ -1,3 +1,4 @@
+import { getConfig } from "@/config";
 import type { User } from "@/entity/user";
 import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
@@ -51,7 +52,7 @@ export const convertUsersFromXml = (usersXml: UserXml[]): User[] => {
  */
 export const usersXml = async () => {
   try {
-    const xmlPath = process.env.XML_PATH || "tmp";
+    const xmlPath = getConfig("xmlPath");
     const xml = await new XmlCore<UsersXml>().read(`${xmlPath}/Users.xml`);
     return xml.entity((xml) => convertUsersFromXml(xml.users.row));
   } catch (error) {

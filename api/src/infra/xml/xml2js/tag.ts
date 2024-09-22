@@ -1,3 +1,4 @@
+import { getConfig } from "@/config";
 import type { Tag } from "@/entity/tag";
 import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
@@ -37,7 +38,7 @@ export const convertTagsFromXml = (tagsXml: TagXml[]): Tag[] => {
  */
 export const tagsXml = async () => {
   try {
-    const xmlPath = process.env.XML_PATH || "tmp";
+    const xmlPath = getConfig("xmlPath");
     const xml = await new XmlCore<TagsXml>().read(`${xmlPath}/Tags.xml`);
     return xml.entity((xml) => convertTagsFromXml(xml.tags.row));
   } catch (error) {

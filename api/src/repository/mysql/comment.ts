@@ -1,14 +1,24 @@
+import { getConfig } from "@/config";
 import type { Comment } from "@/entity/comment";
 import { DatabaseError } from "@/errors/databaseError";
 import type { CommentRepository } from "@/repository/interface/comment";
 import type mysql from "mysql2/promise";
 
 export class CommentRepositoryMySQL implements CommentRepository {
+  private BATCH_SIZE = getConfig("database").batchSize;
+
   constructor(private connection: mysql.Connection) {}
 
   async create(comments: Comment[]): Promise<void> {
+    if (comments.length === 0) {
+      return;
+    }
+
     try {
-      const query = `
+      for (let i = 0; i < comments.length; i += this.BATCH_SIZE) {
+        const batch = comments.slice(i, i + this.BATCH_SIZE);
+
+        const query = `
         INSERT INTO comments (
           id,
           post_id,
@@ -18,19 +28,10 @@ export class CommentRepositoryMySQL implements CommentRepository {
           user_id,
           user_display_name
         )
-        VALUES (
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?
-        )
+        VALUES ${batch.map(() => "(?, ?, ?, ?, ?, ?, ?)").join(",")}
       `;
 
-      for (const comment of comments) {
-        const values = [
+        const values = batch.flatMap((comment) => [
           comment.id,
           comment.postId,
           comment.score,
@@ -38,7 +39,7 @@ export class CommentRepositoryMySQL implements CommentRepository {
           comment.creationDate,
           comment.userId,
           comment.userDisplayName,
-        ];
+        ]);
 
         await this.connection.query(query, values);
       }

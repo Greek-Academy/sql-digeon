@@ -1,13 +1,15 @@
+import { getConfig } from "@/config";
 import dotenv from "dotenv";
 import mysql from "mysql2/promise";
 dotenv.config();
 
 const NewMySQL = (async () => {
+  const database = getConfig("database");
   const connection = await mysql.createConnection({
-    host: process.env.DB_EXTERNAL_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: database.externalHost,
+    user: database.user,
+    password: database.password,
+    database: database.database,
   });
   return connection;
 })();

@@ -1,3 +1,4 @@
+import { getConfig } from "@/config";
 import type { PostLink } from "@/entity/postLink";
 import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
@@ -39,7 +40,7 @@ export const convertPostLinksFromXml = (
  */
 export const postLinksXml = async () => {
   try {
-    const xmlPath = process.env.XML_PATH || "tmp";
+    const xmlPath = getConfig("xmlPath");
     const xml = await new XmlCore<PostLinksXml>().read(
       `${xmlPath}/PostLinks.xml`,
     );

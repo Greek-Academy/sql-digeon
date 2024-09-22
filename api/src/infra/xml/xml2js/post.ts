@@ -1,3 +1,4 @@
+import { getConfig } from "@/config";
 import type { Post } from "@/entity/post";
 import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
@@ -63,7 +64,7 @@ export const convertPostsFromXml = (postsXml: PostXml[]): Post[] => {
  */
 export const postsXml = async () => {
   try {
-    const xmlPath = process.env.XML_PATH || "tmp";
+    const xmlPath = getConfig("xmlPath");
     const xml = await new XmlCore<PostsXml>().read(`${xmlPath}/Posts.xml`);
     return xml.entity((xml) => convertPostsFromXml(xml.posts.row));
   } catch (error) {

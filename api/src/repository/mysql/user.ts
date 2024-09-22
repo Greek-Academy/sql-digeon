@@ -1,14 +1,24 @@
+import { getConfig } from "@/config";
 import type { User } from "@/entity/user";
 import { DatabaseError } from "@/errors/databaseError";
 import type { UserRepository } from "@/repository/interface/user";
 import type mysql from "mysql2/promise";
 
 export class UserRepositoryMySQL implements UserRepository {
+  private BATCH_SIZE = getConfig("database").batchSize;
+
   constructor(private connection: mysql.Connection) {}
 
   async create(users: User[]): Promise<void> {
+    if (users.length === 0) {
+      return;
+    }
+
     try {
-      const query = `
+      for (let i = 0; i < users.length; i += this.BATCH_SIZE) {
+        const batch = users.slice(i, i + this.BATCH_SIZE);
+
+        const query = `
         INSERT INTO users (
           id,
           reputation,
@@ -23,24 +33,10 @@ export class UserRepositoryMySQL implements UserRepository {
           down_votes,
           account_id
         )
-        VALUES (
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?
-        )
+        VALUES ${batch.map(() => "(?,?,?,?,?,?,?,?,?,?,?,?)").join(",")}
       `;
 
-      for (const user of users) {
-        const values = [
+        const values = batch.flatMap((user) => [
           user.id,
           user.reputation,
           user.creationDate,
@@ -53,7 +49,7 @@ export class UserRepositoryMySQL implements UserRepository {
           user.upVotes,
           user.downVotes,
           user.accountId,
-        ];
+        ]);
 
         await this.connection.query(query, values);
       }

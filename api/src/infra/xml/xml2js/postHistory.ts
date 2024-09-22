@@ -1,3 +1,4 @@
+import { getConfig } from "@/config";
 import type { PostHistory } from "@/entity/postHistory";
 import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
@@ -49,7 +50,7 @@ export const convertPostHistoriesFromXml = (
  */
 export const postHistoriesXml = async () => {
   try {
-    const xmlPath = process.env.XML_PATH || "tmp";
+    const xmlPath = getConfig("xmlPath");
     const xml = await new XmlCore<PostHistoriesXml>().read(
       `${xmlPath}/PostHistory.xml`,
     );
