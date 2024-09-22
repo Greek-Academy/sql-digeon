@@ -3,11 +3,13 @@ import type { Badge } from "@/entity/badge";
 import type { Comment } from "@/entity/comment";
 import type { Post } from "@/entity/post";
 import type { PostHistory } from "@/entity/postHistory";
+import type { PostLink } from "@/entity/postLink";
 import type { User } from "@/entity/user";
 import { badgesXml } from "@/infra/xml/badge";
 import { commentsXml } from "@/infra/xml/comment";
 import { postsXml } from "@/infra/xml/post";
 import { postHistoriesXml } from "@/infra/xml/postHistory";
+import { postLinksXml } from "@/infra/xml/postLink";
 import { usersXml } from "@/infra/xml/user";
 import xml2js from "xml2js";
 
@@ -31,6 +33,7 @@ export interface Xml {
   posts: () => Promise<Post[]>;
   comments: () => Promise<Comment[]>;
   postHistories: () => Promise<PostHistory[]>;
+  postLinks: () => Promise<PostLink[]>;
 }
 
 export class Xml2js implements Xml {
@@ -39,4 +42,5 @@ export class Xml2js implements Xml {
   posts = postsXml;
   comments = commentsXml;
   postHistories = postHistoriesXml;
+  postLinks = postLinksXml;
 }

@@ -4,6 +4,7 @@ import { CommentRepositoryMySQL } from "@/repository/mysql/comment";
 import { MySQLSingleton } from "@/repository/mysql/core";
 import { PostRepositoryMySQL } from "@/repository/mysql/post";
 import { PostHistoryRepositoryMySQL } from "@/repository/mysql/postHistory";
+import { PostLinkRepositoryMySQL } from "@/repository/mysql/postLink";
 import { TranslationMySQL } from "@/repository/mysql/translation";
 import { UserRepositoryMySQL } from "@/repository/mysql/user";
 import { SeedUseCase } from "@/usecase/seed";
@@ -20,6 +21,7 @@ import { SeedUseCase } from "@/usecase/seed";
     const postRepository = new PostRepositoryMySQL(db);
     const commentRepository = new CommentRepositoryMySQL(db);
     const postHistoryRepository = new PostHistoryRepositoryMySQL(db);
+    const postLinkRepository = new PostLinkRepositoryMySQL(db);
 
     const seedUseCase = new SeedUseCase(
       xml,
@@ -29,6 +31,7 @@ import { SeedUseCase } from "@/usecase/seed";
       postRepository,
       commentRepository,
       postHistoryRepository,
+      postLinkRepository,
     );
 
     await seedUseCase.execute();

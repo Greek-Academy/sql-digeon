@@ -3,6 +3,7 @@ import type { BadgeRepository } from "@/repository/interface/badge";
 import type { CommentRepository } from "@/repository/interface/comment";
 import type { PostRepository } from "@/repository/interface/post";
 import type { PostHistoryRepository } from "@/repository/interface/postHistory";
+import type { PostLinkRepository } from "@/repository/interface/postLink";
 import type { Translation } from "@/repository/interface/translation";
 import type { UserRepository } from "@/repository/interface/user";
 
@@ -15,6 +16,7 @@ export class SeedUseCase {
     private postRepository: PostRepository,
     private commentRepository: CommentRepository,
     private postHistoryRepository: PostHistoryRepository,
+    private postLinkRepository: PostLinkRepository,
   ) {}
 
   async execute(): Promise<void> {
@@ -45,6 +47,11 @@ export class SeedUseCase {
       let postHistories = await this.xml.postHistories();
       await this.postHistoryRepository.create(postHistories);
       postHistories = [];
+
+      console.log("postLinks");
+      let postLinks = await this.xml.postLinks();
+      await this.postLinkRepository.create(postLinks);
+      postLinks = [];
 
       await this.translation.commit();
     } catch (error) {

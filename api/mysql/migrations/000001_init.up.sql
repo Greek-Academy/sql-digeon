@@ -109,7 +109,8 @@ ALTER TABLE `post_histories` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id
 
 ALTER TABLE `post_links` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
 
-ALTER TABLE `post_links` ADD FOREIGN KEY (`related_post_id`) REFERENCES `posts` (`id`);
+-- post_idが存在していないものがあるためコメントアウト
+-- ALTER TABLE `post_links` ADD FOREIGN KEY (`related_post_id`) REFERENCES `posts` (`id`);
 
 ALTER TABLE `tags` ADD FOREIGN KEY (`excerpt_post_id`) REFERENCES `posts` (`id`);
 
