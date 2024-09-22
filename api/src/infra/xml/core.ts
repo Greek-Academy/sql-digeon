@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { badgesXml } from "@/infra/xml/badge";
 import { usersXml } from "@/infra/xml/user";
 import xml2js from "xml2js";
 
@@ -18,4 +19,5 @@ export class XmlCore<T> {
 
 export class Xml {
   users = usersXml;
+  badges = badgesXml;
 }
