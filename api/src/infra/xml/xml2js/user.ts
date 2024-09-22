@@ -1,4 +1,5 @@
 import type { User } from "@/entity/user";
+import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type UserXml = {
@@ -54,6 +55,6 @@ export const usersXml = async () => {
     const xml = await new XmlCore<UsersXml>().read(`${xmlPath}/Users.xml`);
     return xml.entity((xml) => convertUsersFromXml(xml.users.row));
   } catch (error) {
-    throw new Error(`XMLファイルの読み込みに失敗しました: ${error}`);
+    throw new XmlError("failed to read users xml", error);
   }
 };

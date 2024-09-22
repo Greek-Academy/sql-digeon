@@ -1,4 +1,5 @@
 import type { PostLink } from "@/entity/postLink";
+import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type PostLinkXml = {
@@ -44,6 +45,6 @@ export const postLinksXml = async () => {
     );
     return xml.entity((xml) => convertPostLinksFromXml(xml.postlinks.row));
   } catch (error) {
-    throw new Error(`XMLファイルの読み込みに失敗しました: ${error}`);
+    throw new XmlError("failed to read postLinks xml", error);
   }
 };

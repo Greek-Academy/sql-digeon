@@ -1,4 +1,5 @@
 import type { PostHistory } from "@/entity/postHistory";
+import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type PostHistoryXml = {
@@ -56,6 +57,6 @@ export const postHistoriesXml = async () => {
       convertPostHistoriesFromXml(xml.posthistory.row),
     );
   } catch (error) {
-    throw new Error(`XMLファイルの読み込みに失敗しました: ${error}`);
+    throw new XmlError("failed to read postHistories xml", error);
   }
 };

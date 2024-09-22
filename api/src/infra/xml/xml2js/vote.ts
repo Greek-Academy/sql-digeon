@@ -1,4 +1,5 @@
 import type { Vote } from "@/entity/vote";
+import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type VoteXml = {
@@ -42,6 +43,6 @@ export const votesXml = async () => {
     const xml = await new XmlCore<VotesXml>().read(`${xmlPath}/Votes.xml`);
     return xml.entity((xml) => convertVotesFromXml(xml.votes.row));
   } catch (error) {
-    throw new Error(`XMLファイルの読み込みに失敗しました: ${error}`);
+    throw new XmlError("failed to read votes xml", error);
   }
 };

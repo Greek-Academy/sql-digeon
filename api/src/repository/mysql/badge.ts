@@ -1,4 +1,5 @@
 import type { Badge } from "@/entity/badge";
+import { DatabaseError } from "@/errors/databaseError";
 import type { BadgeRepository } from "@/repository/interface/badge";
 import type mysql from "mysql2/promise";
 
@@ -40,8 +41,7 @@ export class BadgeRepositoryMySQL implements BadgeRepository {
         await this.connection.query(query, values);
       }
     } catch (err) {
-      console.log(err);
-      throw err;
+      throw new DatabaseError("failed to create badge", err);
     }
   }
 }

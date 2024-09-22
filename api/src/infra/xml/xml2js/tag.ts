@@ -1,4 +1,5 @@
 import type { Tag } from "@/entity/tag";
+import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type TagXml = {
@@ -40,6 +41,6 @@ export const tagsXml = async () => {
     const xml = await new XmlCore<TagsXml>().read(`${xmlPath}/Tags.xml`);
     return xml.entity((xml) => convertTagsFromXml(xml.tags.row));
   } catch (error) {
-    throw new Error(`XMLファイルの読み込みに失敗しました: ${error}`);
+    throw new XmlError("failed to read tags xml", error);
   }
 };

@@ -1,4 +1,5 @@
 import type { Vote } from "@/entity/vote";
+import { DatabaseError } from "@/errors/databaseError";
 import type { VoteRepository } from "@/repository/interface/vote";
 import type mysql from "mysql2/promise";
 
@@ -40,8 +41,7 @@ export class VoteRepositoryMySQL implements VoteRepository {
         await this.connection.query(query, values);
       }
     } catch (err) {
-      console.log(err);
-      throw err;
+      throw new DatabaseError("failed to create vote", err);
     }
   }
 }

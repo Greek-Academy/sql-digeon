@@ -7,7 +7,7 @@ import type { Tag } from "@/entity/tag";
 import type { User } from "@/entity/user";
 import type { Vote } from "@/entity/vote";
 
-export interface Xml {
+export interface IXml {
   users: () => Promise<User[]>;
   badges: () => Promise<Badge[]>;
   posts: () => Promise<Post[]>;

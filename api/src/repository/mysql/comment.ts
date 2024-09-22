@@ -1,4 +1,5 @@
 import type { Comment } from "@/entity/comment";
+import { DatabaseError } from "@/errors/databaseError";
 import type { CommentRepository } from "@/repository/interface/comment";
 import type mysql from "mysql2/promise";
 
@@ -43,8 +44,7 @@ export class CommentRepositoryMySQL implements CommentRepository {
         await this.connection.query(query, values);
       }
     } catch (err) {
-      console.log(err);
-      throw err;
+      throw new DatabaseError("failed to create comment", err);
     }
   }
 }

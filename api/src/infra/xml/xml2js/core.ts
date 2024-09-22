@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import type { Xml } from "@/infra/interface/xml";
+import type { IXml } from "@/infra/interface/xml";
 import { badgesXml } from "@/infra/xml/xml2js/badge";
 import { commentsXml } from "@/infra/xml/xml2js/comment";
 import { postsXml } from "@/infra/xml/xml2js/post";
@@ -24,7 +24,7 @@ export class XmlCore<T> {
   }
 }
 
-export class Xml2js implements Xml {
+export class Xml2js implements IXml {
   users = usersXml;
   badges = badgesXml;
   posts = postsXml;

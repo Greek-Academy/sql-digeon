@@ -1,4 +1,5 @@
 import type { Post } from "@/entity/post";
+import { DatabaseError } from "@/errors/databaseError";
 import type { PostRepository } from "@/repository/interface/post";
 import type mysql from "mysql2/promise";
 
@@ -76,8 +77,7 @@ export class PostRepositoryMySQL implements PostRepository {
         await this.connection.query(query, values);
       }
     } catch (err) {
-      console.log(err);
-      throw err;
+      throw new DatabaseError("failed to create post", err);
     }
   }
 }

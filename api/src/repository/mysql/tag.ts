@@ -1,4 +1,5 @@
 import type { Tag } from "@/entity/tag";
+import { DatabaseError } from "@/errors/databaseError";
 import type { TagRepository } from "@/repository/interface/tag";
 import type mysql from "mysql2/promise";
 
@@ -37,8 +38,7 @@ export class TagRepositoryMySQL implements TagRepository {
         await this.connection.query(query, values);
       }
     } catch (err) {
-      console.log(err);
-      throw err;
+      throw new DatabaseError("failed to create tag", err);
     }
   }
 }

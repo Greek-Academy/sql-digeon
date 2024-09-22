@@ -1,3 +1,4 @@
+import { WinstonLogger } from "@/infra/logger/winston";
 import { Xml2js } from "@/infra/xml/xml2js/core";
 import { BadgeRepositoryMySQL } from "@/repository/mysql/badge";
 import { CommentRepositoryMySQL } from "@/repository/mysql/comment";
@@ -12,6 +13,8 @@ import { VoteRepositoryMySQL } from "@/repository/mysql/vote";
 import { SeedUseCase } from "@/usecase/seed";
 
 (async () => {
+  const logger = new WinstonLogger();
+  logger.info("start seed");
   try {
     // 依存性の注入
     const xml = new Xml2js();
@@ -28,6 +31,7 @@ import { SeedUseCase } from "@/usecase/seed";
     const voteRepository = new VoteRepositoryMySQL(db);
 
     const seedUseCase = new SeedUseCase(
+      logger,
       xml,
       translation,
       userRepository,
@@ -41,10 +45,10 @@ import { SeedUseCase } from "@/usecase/seed";
     );
 
     await seedUseCase.execute();
-
-    console.log("データの投入が完了しました");
+    logger.info("finish seed");
   } catch (err) {
-    console.error("エラーが発生しました:", err);
+    console.log(err);
+    logger.error(err);
   } finally {
     await MySQLSingleton.end();
     process.exit();

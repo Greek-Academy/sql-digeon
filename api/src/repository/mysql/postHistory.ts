@@ -1,4 +1,5 @@
 import type { PostHistory } from "@/entity/postHistory";
+import { DatabaseError } from "@/errors/databaseError";
 import type { PostHistoryRepository } from "@/repository/interface/postHistory";
 import type mysql from "mysql2/promise";
 
@@ -52,8 +53,7 @@ export class PostHistoryRepositoryMySQL implements PostHistoryRepository {
         await this.connection.query(query, values);
       }
     } catch (err) {
-      console.log(err);
-      throw err;
+      throw new DatabaseError("failed to create postHistory", err);
     }
   }
 }

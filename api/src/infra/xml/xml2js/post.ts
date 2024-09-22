@@ -1,4 +1,5 @@
 import type { Post } from "@/entity/post";
+import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type PostXml = {
@@ -66,6 +67,6 @@ export const postsXml = async () => {
     const xml = await new XmlCore<PostsXml>().read(`${xmlPath}/Posts.xml`);
     return xml.entity((xml) => convertPostsFromXml(xml.posts.row));
   } catch (error) {
-    throw new Error(`XMLファイルの読み込みに失敗しました: ${error}`);
+    throw new XmlError("failed to read posts xml", error);
   }
 };

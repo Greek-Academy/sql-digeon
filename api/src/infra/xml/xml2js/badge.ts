@@ -1,4 +1,5 @@
 import type { Badge } from "@/entity/badge";
+import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type BadgeXml = {
@@ -42,6 +43,6 @@ export const badgesXml = async () => {
     const xml = await new XmlCore<BadgesXml>().read(`${xmlPath}/Badges.xml`);
     return xml.entity((xml) => convertBadgesFromXml(xml.badges.row));
   } catch (error) {
-    throw new Error(`XMLファイルの読み込みに失敗しました: ${error}`);
+    throw new XmlError("failed to read badges xml", error);
   }
 };

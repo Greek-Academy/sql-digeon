@@ -1,4 +1,5 @@
 import type { User } from "@/entity/user";
+import { DatabaseError } from "@/errors/databaseError";
 import type { UserRepository } from "@/repository/interface/user";
 import type mysql from "mysql2/promise";
 
@@ -58,8 +59,7 @@ export class UserRepositoryMySQL implements UserRepository {
         await this.connection.query(query, values);
       }
     } catch (err) {
-      console.log(err);
-      throw err;
+      throw new DatabaseError("failed to create user", err);
     }
   }
 }

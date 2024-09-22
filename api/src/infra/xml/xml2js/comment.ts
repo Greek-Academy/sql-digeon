@@ -1,4 +1,5 @@
 import type { Comment } from "@/entity/comment";
+import { XmlError } from "@/errors/xmlError";
 import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type CommentXml = {
@@ -48,6 +49,6 @@ export const commentsXml = async () => {
     );
     return xml.entity((xml) => convertCommentsFromXml(xml.comments.row));
   } catch (error) {
-    throw new Error(`XMLファイルの読み込みに失敗しました: ${error}`);
+    throw new XmlError("failed to read comments xml", error);
   }
 };
