@@ -4,6 +4,7 @@ import type { CommentRepository } from "@/repository/interface/comment";
 import type { PostRepository } from "@/repository/interface/post";
 import type { PostHistoryRepository } from "@/repository/interface/postHistory";
 import type { PostLinkRepository } from "@/repository/interface/postLink";
+import type { TagRepository } from "@/repository/interface/tag";
 import type { Translation } from "@/repository/interface/translation";
 import type { UserRepository } from "@/repository/interface/user";
 
@@ -17,6 +18,7 @@ export class SeedUseCase {
     private commentRepository: CommentRepository,
     private postHistoryRepository: PostHistoryRepository,
     private postLinkRepository: PostLinkRepository,
+    private tagRepository: TagRepository,
   ) {}
 
   async execute(): Promise<void> {
@@ -52,6 +54,11 @@ export class SeedUseCase {
       let postLinks = await this.xml.postLinks();
       await this.postLinkRepository.create(postLinks);
       postLinks = [];
+
+      console.log("tags");
+      let tags = await this.xml.tags();
+      await this.tagRepository.create(tags);
+      tags = [];
 
       await this.translation.commit();
     } catch (error) {
