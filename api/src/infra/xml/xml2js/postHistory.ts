@@ -1,5 +1,5 @@
 import type { PostHistory } from "@/entity/postHistory";
-import { XmlCore } from "@/infra/xml/core";
+import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type PostHistoryXml = {
   $: {

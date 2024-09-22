@@ -1,5 +1,5 @@
 import type { PostLink } from "@/entity/postLink";
-import { XmlCore } from "@/infra/xml/core";
+import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type PostLinkXml = {
   $: {

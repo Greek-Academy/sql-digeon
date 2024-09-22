@@ -1,5 +1,5 @@
 import type { Comment } from "@/entity/comment";
-import { XmlCore } from "@/infra/xml/core";
+import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type CommentXml = {
   $: {

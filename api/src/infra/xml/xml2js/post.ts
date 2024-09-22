@@ -1,5 +1,5 @@
 import type { Post } from "@/entity/post";
-import { XmlCore } from "@/infra/xml/core";
+import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type PostXml = {
   $: {

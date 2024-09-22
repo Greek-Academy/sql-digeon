@@ -1,4 +1,4 @@
-import { Xml2js } from "@/infra/xml/core";
+import { Xml2js } from "@/infra/xml/xml2js/core";
 import { BadgeRepositoryMySQL } from "@/repository/mysql/badge";
 import { CommentRepositoryMySQL } from "@/repository/mysql/comment";
 import { MySQLSingleton } from "@/repository/mysql/core";

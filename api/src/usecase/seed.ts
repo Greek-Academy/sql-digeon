@@ -1,4 +1,4 @@
-import type { Xml } from "@/infra/xml/core";
+import type { Xml } from "@/infra/interface/xml";
 import type { BadgeRepository } from "@/repository/interface/badge";
 import type { CommentRepository } from "@/repository/interface/comment";
 import type { PostRepository } from "@/repository/interface/post";
