@@ -116,4 +116,5 @@ ALTER TABLE `tags` ADD FOREIGN KEY (`excerpt_post_id`) REFERENCES `posts` (`id`)
 
 ALTER TABLE `tags` ADD FOREIGN KEY (`wiki_post_id`) REFERENCES `posts` (`id`);
 
-ALTER TABLE `votes` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
+-- post_idが存在していないものがあるためコメントアウト
+-- ALTER TABLE `votes` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);

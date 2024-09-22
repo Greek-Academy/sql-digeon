@@ -8,6 +8,7 @@ import { PostLinkRepositoryMySQL } from "@/repository/mysql/postLink";
 import { TagRepositoryMySQL } from "@/repository/mysql/tag";
 import { TranslationMySQL } from "@/repository/mysql/translation";
 import { UserRepositoryMySQL } from "@/repository/mysql/user";
+import { VoteRepositoryMySQL } from "@/repository/mysql/vote";
 import { SeedUseCase } from "@/usecase/seed";
 
 (async () => {
@@ -24,6 +25,7 @@ import { SeedUseCase } from "@/usecase/seed";
     const postHistoryRepository = new PostHistoryRepositoryMySQL(db);
     const postLinkRepository = new PostLinkRepositoryMySQL(db);
     const tagRepository = new TagRepositoryMySQL(db);
+    const voteRepository = new VoteRepositoryMySQL(db);
 
     const seedUseCase = new SeedUseCase(
       xml,
@@ -35,6 +37,7 @@ import { SeedUseCase } from "@/usecase/seed";
       postHistoryRepository,
       postLinkRepository,
       tagRepository,
+      voteRepository,
     );
 
     await seedUseCase.execute();

@@ -6,10 +6,10 @@ ALTER TABLE `comments` DROP FOREIGN KEY `comments_ibfk_2`;
 ALTER TABLE `post_histories` DROP FOREIGN KEY `post_histories_ibfk_1`;
 -- ALTER TABLE `post_histories` DROP FOREIGN KEY `post_histories_ibfk_2`;
 ALTER TABLE `post_links` DROP FOREIGN KEY `post_links_ibfk_1`;
-ALTER TABLE `post_links` DROP FOREIGN KEY `post_links_ibfk_2`;
+-- ALTER TABLE `post_links` DROP FOREIGN KEY `post_links_ibfk_2`;
 ALTER TABLE `tags` DROP FOREIGN KEY `tags_ibfk_1`;
 ALTER TABLE `tags` DROP FOREIGN KEY `tags_ibfk_2`;
-ALTER TABLE `votes` DROP FOREIGN KEY `votes_ibfk_1`;
+-- ALTER TABLE `votes` DROP FOREIGN KEY `votes_ibfk_1`;
 
 DROP TABLE IF EXISTS `votes`;
 DROP TABLE IF EXISTS `tags`;
