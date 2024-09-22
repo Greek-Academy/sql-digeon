@@ -1,5 +1,4 @@
 import type { Badge } from "@/entity/badge";
-import type { User } from "@/entity/user";
 import type { BadgeRepository } from "@/repository/interface/badge";
 import type mysql from "mysql2/promise";
 
