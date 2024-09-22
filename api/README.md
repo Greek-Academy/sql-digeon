@@ -35,5 +35,5 @@ make migrate-up
 環境変数 `XML_PATH` にxmlファイルを置いた状態で下記のコマンドを実行する
 
 ```sh
-npm run seed
+make seed
 ```

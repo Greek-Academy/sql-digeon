@@ -19,3 +19,7 @@ migrate-up:
 .PHONY: migrate-down
 migrate-down:
 	$(DOCKER_COMPOSE_DEV) run --rm mysql sh -c 'migrate -path migrations -database "mysql://$$DB_USER:$$DB_PASSWORD@tcp($$DB_HOST:$$DB_PORT)/$$DB_NAME?multiStatements=true" down'
+
+.PHONY: seed
+seed:
+	npm run seed
