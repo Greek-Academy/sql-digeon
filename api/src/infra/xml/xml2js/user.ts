@@ -1,4 +1,7 @@
+import { getConfig } from "@/config";
 import type { User } from "@/entity/user";
+import { XmlError } from "@/errors/xmlError";
+import { XmlCore } from "@/infra/xml/xml2js/core";
 
 export type UserXml = {
   $: {
@@ -42,4 +45,17 @@ export const convertUsersFromXml = (usersXml: UserXml[]): User[] => {
     downVotes: Number.parseInt(user.$.DownVotes) || null,
     accountId: Number.parseInt(user.$.AccountId) || null,
   }));
+};
+
+/**
+ * XMLファイルから情報を取得する
+ */
+export const usersXml = async () => {
+  try {
+    const xmlPath = getConfig("xmlPath");
+    const xml = await new XmlCore<UsersXml>().read(`${xmlPath}/Users.xml`);
+    return xml.entity((xml) => convertUsersFromXml(xml.users.row));
+  } catch (error) {
+    throw new XmlError("failed to read users xml", error);
+  }
 };

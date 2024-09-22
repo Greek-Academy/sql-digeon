@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "ts-node -r tsconfig-paths/register scripts/seed.ts",
+    "seed": "NODE_OPTIONS='--max-old-space-size=8192' ts-node -r tsconfig-paths/register scripts/seed.ts",
     "lint": "biome lint --write ./src ./scripts",
     "format": "biome format --write ./src ./scripts",
     "fix": "biome check --write ./src ./scripts",
@@ -28,6 +28,7 @@
     "fs": "^0.0.1-security",
     "mysql2": "^3.11.3",
     "tsconfig-paths": "^4.2.0",
+    "winston": "^3.14.2",
     "xml2js": "^0.6.2"
   }
 }

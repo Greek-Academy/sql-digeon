@@ -54,7 +54,7 @@ CREATE TABLE `comments` (
   `user_display_name` varchar(255)
 );
 
-CREATE TABLE `post_history` (
+CREATE TABLE `post_histories` (
   `id` integer PRIMARY KEY,
   `post_history_type_id` integer,
   `post_id` integer,
@@ -62,7 +62,7 @@ CREATE TABLE `post_history` (
   `creation_date` timestamp,
   `user_id` integer,
   `user_display_name` varchar(255),
-  `comment` varchar(255),
+  `comment` text,
   `text` text,
   `content_license` varchar(255)
 );
@@ -89,7 +89,7 @@ CREATE TABLE `votes` (
   `vote_type_id` integer,
   `user_id` integer,
   `creation_date` timestamp,
-  `bountry_amount` integer
+  `bounty_amount` integer
 );
 
 ALTER TABLE `badges` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
@@ -102,16 +102,19 @@ ALTER TABLE `comments` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `comments` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
 
-ALTER TABLE `post_history` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
+-- post_idが存在していないものがあるためコメントアウト
+-- ALTER TABLE `post_histories` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
 
-ALTER TABLE `post_history` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `post_histories` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `post_links` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
 
-ALTER TABLE `post_links` ADD FOREIGN KEY (`related_post_id`) REFERENCES `posts` (`id`);
+-- post_idが存在していないものがあるためコメントアウト
+-- ALTER TABLE `post_links` ADD FOREIGN KEY (`related_post_id`) REFERENCES `posts` (`id`);
 
 ALTER TABLE `tags` ADD FOREIGN KEY (`excerpt_post_id`) REFERENCES `posts` (`id`);
 
 ALTER TABLE `tags` ADD FOREIGN KEY (`wiki_post_id`) REFERENCES `posts` (`id`);
 
-ALTER TABLE `votes` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
+-- post_idが存在していないものがあるためコメントアウト
+-- ALTER TABLE `votes` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
