@@ -1,7 +1,13 @@
 import fs from "node:fs";
+import type { Badge } from "@/entity/badge";
+import type { Comment } from "@/entity/comment";
+import type { Post } from "@/entity/post";
+import type { PostHistory } from "@/entity/postHistory";
+import type { User } from "@/entity/user";
 import { badgesXml } from "@/infra/xml/badge";
 import { commentsXml } from "@/infra/xml/comment";
 import { postsXml } from "@/infra/xml/post";
+import { postHistoriesXml } from "@/infra/xml/postHistory";
 import { usersXml } from "@/infra/xml/user";
 import xml2js from "xml2js";
 
@@ -19,9 +25,18 @@ export class XmlCore<T> {
   }
 }
 
-export class Xml {
+export interface Xml {
+  users: () => Promise<User[]>;
+  badges: () => Promise<Badge[]>;
+  posts: () => Promise<Post[]>;
+  comments: () => Promise<Comment[]>;
+  postHistories: () => Promise<PostHistory[]>;
+}
+
+export class Xml2js implements Xml {
   users = usersXml;
   badges = badgesXml;
   posts = postsXml;
   comments = commentsXml;
+  postHistories = postHistoriesXml;
 }
