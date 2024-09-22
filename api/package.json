@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "ts-node -r tsconfig-paths/register scripts/seed.ts",
+    "seed": "NODE_OPTIONS='--max-old-space-size=8192' ts-node -r tsconfig-paths/register scripts/seed.ts",
     "lint": "biome lint --write ./src ./scripts",
     "format": "biome format --write ./src ./scripts",
     "fix": "biome check --write ./src ./scripts",

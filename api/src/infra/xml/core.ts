@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { badgesXml } from "@/infra/xml/badge";
+import { commentsXml } from "@/infra/xml/comment";
 import { postsXml } from "@/infra/xml/post";
 import { usersXml } from "@/infra/xml/user";
 import xml2js from "xml2js";
@@ -22,4 +23,5 @@ export class Xml {
   users = usersXml;
   badges = badgesXml;
   posts = postsXml;
+  comments = commentsXml;
 }
