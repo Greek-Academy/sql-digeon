@@ -8,7 +8,6 @@ export class PostLinkRepositoryMySQL implements PostLinkRepository {
 
   async create(postLinks: PostLink[]): Promise<void> {
     try {
-      // データの挿入
       const query = `
         INSERT INTO post_links (
           id,

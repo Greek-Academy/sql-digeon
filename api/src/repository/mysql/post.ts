@@ -8,7 +8,6 @@ export class PostRepositoryMySQL implements PostRepository {
 
   async create(posts: Post[]): Promise<void> {
     try {
-      // データの挿入
       const query = `
         INSERT INTO posts (
           id,

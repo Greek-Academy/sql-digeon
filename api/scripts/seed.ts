@@ -1,3 +1,7 @@
+/**
+ * シードデータを挿入するスクリプト
+ * XML_PATHにあるXMLをDBに挿入する
+ */
 import { WinstonLogger } from "@/infra/logger/winston";
 import { Xml2js } from "@/infra/xml/xml2js/core";
 import { BadgeRepositoryMySQL } from "@/repository/mysql/badge";

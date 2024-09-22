@@ -8,7 +8,6 @@ export class UserRepositoryMySQL implements UserRepository {
 
   async create(users: User[]): Promise<void> {
     try {
-      // データの挿入
       const query = `
         INSERT INTO users (
           id,

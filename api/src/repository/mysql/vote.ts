@@ -8,7 +8,6 @@ export class VoteRepositoryMySQL implements VoteRepository {
 
   async create(votes: Vote[]): Promise<void> {
     try {
-      // データの挿入
       const query = `
         INSERT INTO votes (
           id,

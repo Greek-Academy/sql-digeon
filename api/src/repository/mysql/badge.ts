@@ -8,7 +8,6 @@ export class BadgeRepositoryMySQL implements BadgeRepository {
 
   async create(badges: Badge[]): Promise<void> {
     try {
-      // データの挿入
       const query = `
         INSERT INTO badges (
           id,

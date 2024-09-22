@@ -8,7 +8,6 @@ export class PostHistoryRepositoryMySQL implements PostHistoryRepository {
 
   async create(postHistories: PostHistory[]): Promise<void> {
     try {
-      // データの挿入
       const query = `
         INSERT INTO post_histories (
           id,

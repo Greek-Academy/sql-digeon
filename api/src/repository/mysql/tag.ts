@@ -8,7 +8,6 @@ export class TagRepositoryMySQL implements TagRepository {
 
   async create(tags: Tag[]): Promise<void> {
     try {
-      // データの挿入
       const query = `
         INSERT INTO tags (
           id,
