@@ -5,6 +5,7 @@ import { TranslationMySQL } from "@/repository/mysql/translation";
 import { UserRepositoryMySQL } from "@/repository/mysql/user";
 import { router } from "@/router";
 import { UserUseCase } from "@/usecase/user";
+import cors from "cors";
 import express from "express";
 
 interface AppLocals {
@@ -19,6 +20,7 @@ declare module "express" {
 
 (async () => {
   const app = express();
+  app.use(cors());
   const PORT = getConfig("api").port;
 
   const logger = new WinstonLogger();
@@ -28,6 +30,7 @@ declare module "express" {
     const userRepository = new UserRepositoryMySQL(db);
     const userUseCase = new UserUseCase(logger, translation, userRepository);
 
+    app.locals.logger = logger;
     app.locals.userUseCase = userUseCase;
 
     app.use("/api", router);

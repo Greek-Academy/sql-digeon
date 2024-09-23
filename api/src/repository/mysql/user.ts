@@ -62,14 +62,14 @@ export class UserRepositoryMySQL implements UserRepository {
   async creationMonths(): Promise<UserCreationMonths[]> {
     const query = `
       SELECT
-        DATE_FORMAT(creation_date, '%Y-%m-01') AS date,
+        DATE_FORMAT(creation_date, '%Y-%m-01') AS month,
         COUNT(*) as count
       FROM
         users
       GROUP BY
-        date
+        month
       ORDER BY
-        date
+        month
     `;
     const [rows] = await this.connection.query<RowDataPacket[]>(query);
     return rows as UserCreationMonths[];
