@@ -14,6 +14,6 @@ export type User = {
 };
 
 export type UserCreationMonths = {
-  month: number;
+  month: string;
   count: number;
 };
