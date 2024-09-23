@@ -12,3 +12,8 @@ export type User = {
   downVotes: number | null;
   accountId: number | null;
 };
+
+export type UserCreationMonths = {
+  month: number;
+  count: number;
+};

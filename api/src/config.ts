@@ -13,6 +13,9 @@ export const config = {
     batchSize: Number.parseInt(process.env.BATCH_SIZE ?? "1000") || 10000,
   },
   xmlPath: process.env.XML_PATH || "tmp",
+  api: {
+    port: process.env.API_PORT || 3000,
+  },
 };
 
 export const getConfig = <K extends keyof typeof config>(
