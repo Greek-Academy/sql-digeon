@@ -71,5 +71,10 @@ export const CreationMonths = () => {
     },
   };
 
-  return <Line data={data} options={options} />;
+  return (
+    <div>
+      <h1>月別ユーザー登録数</h1>
+      <Line data={data} options={options} />
+    </div>
+  );
 };
