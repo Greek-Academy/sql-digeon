@@ -1,4 +1,4 @@
-name: app
+name: api
 
 on:
   push:
@@ -8,12 +8,12 @@ on:
     branches:
       - main
     paths:
-      - "app/**"
-      - ".github/workflows/app.yml"
+      - "api/**"
+      - ".github/workflows/api.yml"
 
 defaults:
   run:
-    working-directory: app
+    working-directory: api
 
 jobs:
   check-vulnerabilities:
@@ -44,24 +44,3 @@ jobs:
       - name: Lint and Format
         run: |
           npm run check
-
-  build:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - name: Cache npm
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install dependencies
-        run: npm ci --prefer-offline
-      - name: Build
-        run: npm run build
