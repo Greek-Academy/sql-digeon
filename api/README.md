@@ -6,13 +6,13 @@
 cp .env.example .env
 ```
 
-## 環境を立ち上げる
+## DB環境を立ち上げる
 
 ```sh
 make run-dev
 ```
 
-## 環境を破棄する
+## DB環境を破棄する
 
 ```sh
 make destroy
@@ -36,4 +36,10 @@ make migrate-up
 
 ```sh
 make seed
+```
+
+## APIサーバの起動
+
+```sh
+npm run dev
 ```

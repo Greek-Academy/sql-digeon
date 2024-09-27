@@ -1,6 +1,5 @@
-import type { UserCreationMonths } from "@/entity/user";
-import { UserRepositoryAPI } from "@/repository/api/user";
-import { UserUseCase } from "@/repository/usecase/user";
+import { GraphLine } from "@/components/ui/graph/GraphLine";
+import { useUserCreationMonths } from "@/hooks/user/useUserCreationMonths";
 import {
   CategoryScale,
   Chart,
@@ -11,8 +10,6 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { useEffect, useMemo, useState } from "react";
-import { Line } from "react-chartjs-2";
 
 Chart.register(
   CategoryScale,
@@ -25,56 +22,23 @@ Chart.register(
 );
 
 export const CreationMonths = () => {
-  const userRepository = useMemo(() => new UserRepositoryAPI(), []);
-  const userUseCase = useMemo(
-    () => new UserUseCase(userRepository),
-    [userRepository],
-  );
-  const [months, setMonths] = useState<UserCreationMonths[]>([]);
+  const creationMonthsHook = useUserCreationMonths();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const monthsData = await userUseCase.fetchCreationMonths();
-      setMonths(monthsData);
-    };
-
-    fetchData();
-  }, [userUseCase]);
-
-  if (months.length === 0) {
+  if (creationMonthsHook.isLoading) {
     return <div>Loading...</div>;
   }
 
-  const data = {
-    labels: months.map((item) => item.month),
-    datasets: [
-      {
-        label: "Count",
-        data: months.map((item) => item.count),
-        fill: false,
-        borderColor: "rgba(75,192,192,1)",
-        tension: 0.1,
-      },
-    ],
-  };
+  if (creationMonthsHook.error) {
+    return <div>Error: {creationMonthsHook.error.message}</div>;
+  }
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-      title: {
-        display: true,
-        label: "Creation Months",
-      },
-    },
-  };
+  const labels = creationMonthsHook.ret.map((item) => item.month);
+  const values = creationMonthsHook.ret.map((item) => item.count);
 
   return (
     <div>
       <h1>月別ユーザー登録数</h1>
-      <Line data={data} options={options} />
+      <GraphLine label={"登録数"} labels={labels} values={values} />
     </div>
   );
 };
