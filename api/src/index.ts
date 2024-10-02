@@ -5,6 +5,7 @@ import { TranslationMySQL } from "@/repository/mysql/translation";
 import { UserRepositoryMySQL } from "@/repository/mysql/user";
 import { router } from "@/router";
 import { UserUseCase } from "@/usecase/user";
+import { UserRepositoryBigquery } from "bigquery/user";
 import cors from "cors";
 import express from "express";
 
@@ -27,7 +28,10 @@ declare module "express" {
   try {
     const db = await MySQLSingleton.getInstance();
     const translation = new TranslationMySQL(db);
-    const userRepository = new UserRepositoryMySQL(db);
+    // const userRepository = new UserRepositoryMySQL(db);
+    const {BigQuery} = require('@google-cloud/bigquery');
+    const bigquery = new BigQuery();
+    const userRepository = new UserRepositoryBigquery(db, bigquery);
     const userUseCase = new UserUseCase(logger, translation, userRepository);
 
     app.locals.logger = logger;
