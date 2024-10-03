@@ -11,6 +11,7 @@ export const config = {
     port: process.env.DB_PORT || "3306",
     database: process.env.DB_NAME || "database",
     batchSize: Number.parseInt(process.env.BATCH_SIZE ?? "1000") || 10000,
+    type: process.env.DB_TYPE || "mysql",
   },
   xmlPath: process.env.XML_PATH || "tmp",
   api: {

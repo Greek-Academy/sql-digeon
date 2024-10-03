@@ -43,3 +43,9 @@ make seed
 ```sh
 npm run dev
 ```
+
+## Bigquery認証情報
+
+サービスアカウントキーが記載されたjsonファイルをapi/.authに配置する
+参考： [サービス アカウント キーの作成と削除  |  IAM Documentation  |  Google Cloud](https://cloud.google.com/iam/docs/keys-create-delete?hl=ja#creating)
+環境変数 `GOOGLE_APPLICATION_CREDENTIALS`にファイル名を記載
