@@ -5,3 +5,5 @@ tmp
 .env
 .env.dev
 sql-digeon-stack-over-flow-a7d4c4754872.json
+.auth/*
+!.gitkeep

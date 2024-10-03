@@ -1,61 +1,13 @@
-import { getConfig } from "@/config";
-import { User, UserCreationMonths } from "@/entity/user";
+import type { User, UserCreationMonths } from "@/entity/user";
 import { DatabaseError } from "@/errors/databaseError";
-import { UserRepository } from "@/repository/interface/user";
-import type mysql from "mysql2/promise";
+import type { UserRepository } from "@/repository/interface/user";
+import type { BigQuery } from "@google-cloud/bigquery";
 
 export class UserRepositoryBigquery implements UserRepository {
-  private BATCH_SIZE = getConfig("database").batchSize;
-
-  constructor(private connection: mysql.Connection, private bigquery:any) {}
+  constructor(private bigquery: BigQuery) {}
 
   async create(users: User[]): Promise<void> {
-    if (users.length === 0) {
-      return;
-    }
-
-    try {
-      for (let i = 0; i < users.length; i += this.BATCH_SIZE) {
-        const batch = users.slice(i, i + this.BATCH_SIZE);
-
-        const query = `
-        INSERT INTO users (
-          id,
-          reputation,
-          creation_date,
-          display_name,
-          last_access_date,
-          website_url,
-          location,
-          about_me,
-          views,
-          up_votes,
-          down_votes,
-          account_id
-        )
-        VALUES ${batch.map(() => "(?,?,?,?,?,?,?,?,?,?,?,?)").join(",")}
-      `;
-
-        const values = batch.flatMap((user) => [
-          user.id,
-          user.reputation,
-          user.creationDate,
-          user.displayName,
-          user.lastAccessDate,
-          user.websiteUrl,
-          user.location,
-          user.aboutMe,
-          user.views,
-          user.upVotes,
-          user.downVotes,
-          user.accountId,
-        ]);
-
-        await this.connection.query(query, values);
-      }
-    } catch (err) {
-      throw new DatabaseError("failed to create user", err);
-    }
+    throw new DatabaseError("BigQuery does not support write operations", null);
   }
 
   async creationMonths(): Promise<UserCreationMonths[]> {
@@ -71,20 +23,20 @@ export class UserRepositoryBigquery implements UserRepository {
         month
     `;
 
-  // For all options, see https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
-  const options = {
-    query: query,
-    // Location must match that of the dataset(s) referenced in the query.
-    // location: 'US',
-  };
+    // For all options, see https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+    const options = {
+      query: query,
+      // Location must match that of the dataset(s) referenced in the query.
+      // location: 'US',
+    };
 
-  // Run the query as a job
-  const [job] = await this.bigquery.createQueryJob(options);
-  console.log(`Job ${job.id} started.`);
+    // Run the query as a job
+    const [job] = await this.bigquery.createQueryJob(options);
+    console.log(`Job ${job.id} started.`);
 
-  // Wait for the query to finish
-  const [rows] = await job.getQueryResults();
+    // Wait for the query to finish
+    const [rows] = await job.getQueryResults();
 
-  return rows as UserCreationMonths[];
+    return rows as UserCreationMonths[];
   }
 }
